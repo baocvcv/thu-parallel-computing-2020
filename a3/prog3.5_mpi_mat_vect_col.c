@@ -174,10 +174,15 @@ void Build_derived_type(int m, int local_m, int n, int local_n,
    /* m blocks each containing local_n elements */
    /* The start of each block is n doubles beyond the preceding block */
    MPI_Type_vector(m, local_n, n, MPI_DOUBLE, &vect_mpi_t);
+   // long l, e;
+   // MPI_Type_get_extent(vect_mpi_t, &l, &e);
+   // printf("*****vect_mpi_t lb=%d ext=%d\n", l, e);
 
    /* Resize the new type so that it has the extent of local_n doubles */
    MPI_Type_create_resized(vect_mpi_t, 0, local_n*sizeof(double),
          block_col_mpi_t_p);
+   // MPI_Type_get_extent(*block_col_mpi_t_p, &l, &e);
+   // printf("*****block_col_mpi_t_p lb=%d ext=%d\n", l, e);
    MPI_Type_commit(block_col_mpi_t_p);
 }  /* Build_derived_type */
 

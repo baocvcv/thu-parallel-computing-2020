@@ -1,7 +1,7 @@
 # makefile for single directory c++ projects
 
 # target & files
-TARGET := histo_dist
+TARGET := mat_vect_mult
 DBG_SUFFIX := _dbg
 TARGET_DEBUG := $(addsuffix $(DBG_SUFFIX), $(TARGET)) # main_dbg
 # MAIN_SRC := $(addsuffix .cpp, $(TARGET))
@@ -38,8 +38,8 @@ debug: clean $(TARGET_DEBUG)
 
 .PHONY: run
 run:
-	@echo "Running $(TARGET) with $(N) cores ..."
-	@-mpiexec -n $(N) ./$(TARGET)
+	@echo "Running $(TARGET) with $(N) cores and $(n)*$(n) matrix..."
+	@-mpiexec -n $(N) ./$(TARGET) $(n)
 
 .PHONY: run_default
 run_default:
