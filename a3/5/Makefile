@@ -8,7 +8,7 @@ TARGET_DEBUG := $(addsuffix $(DBG_SUFFIX), $(TARGET)) # main_dbg
 SRC := $(basename $(wildcard *.c*))
 
 # macros
-CC := mpic++
+CC := $(if $(shell command -v mpiicpc), mpiicpc, mpic++)
 CCFLAG := -O3 #-std=c++11
 DBGFLAG := -DDEBUG # -g -Wall -std=c++11
 CCOBJFLAG := $(CCFLAG) -c
@@ -43,10 +43,9 @@ run:
 
 .PHONY: run_default
 run_default:
-	@echo "Running $(TARGET) with 3 cores and the following params:"
-	@echo "  no_of_bins = 8, min_meas = 1, max_meas = 13, N=150"
+	@echo "Running $(TARGET) with 4 cores and 100*100 matrix:"
 	@echo ""
-	@-echo "8 1 13 150" | mpiexec -n 3 ./$(TARGET)
+	@-mpiexec -n 4 ./$(TARGET) 100
 
 .PHONY: clean
 clean:

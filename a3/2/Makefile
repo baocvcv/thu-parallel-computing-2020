@@ -8,7 +8,7 @@ TARGET_DEBUG := $(addsuffix $(DBG_SUFFIX), $(TARGET)) # main_dbg
 SRC := $(basename $(wildcard *.c*))
 
 # macros
-CC := mpic++
+CC := $(if $(shell command -v mpiicpc), mpiicpc, mpic++)
 CCFLAG := -O3 #-std=c++11
 DBGFLAG := -DDEBUG # -g -Wall -std=c++11
 CCOBJFLAG := $(CCFLAG) -c
